@@ -46,6 +46,20 @@ class LinkedList:
         for _ in range(index):
             current = current.next
         return current.value
+    
+    def insert(self, index, value):
+        new_node = Node(value)
+        if index == 0:
+            self.prepend(value)
+        elif index == self.length-1:
+            self.append(value)
+        else:
+            prev_node = self.get(index - 1)
+            next_node = self.get(index)
+            
+            new_node.next = next_node
+            prev_node.next = new_node
+        self.length += 1
 
     def pop(self):
         if self.length == 0:
@@ -79,14 +93,32 @@ class LinkedList:
             current.next = None
         self.length -= 1
         return current
+
+    def remove(self, index):
+        if index < 0 or index >= self.length:
+            return None
+        elif index == 0:
+            current = self.removeHead()
+        elif index == self.index - 1:
+            current = self.pop()
+        else:
+            prev_node = self.get(index - 1)
+            next_node = self.get(index + 1)
+            current = self.get(index)
+            current.next = None
+            prev_node.next = next_node
+        self.length -= 1
+        return current
     
 ll = LinkedList()
 ll.append(2)
 ll.prepend(1)
 ll.append(3)
 ll.append(4)
+ll.insert(1, 5)
 ll.pop()
 ll.removeHead()
+ll.insert(2, 6)
 ll.print_list()
 print("Length of list : ", ll.length)
             
