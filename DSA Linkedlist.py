@@ -110,15 +110,29 @@ class LinkedList:
         self.length -= 1
         return current
     
+    def reverse(self):
+        prev_node = None
+        current = self.head
+        next_node = current.next
+        
+        while current is not None:
+            current.next = prev_node
+            prev_node = current
+            current = next_node
+            if next_node is not None:
+                next_node = next_node.next
+        
+        self.head, self.tail = self.tail, self.head
+        current = self.head
+        while current is not None:
+            print(current.value)
+            current = current.next
+        
 ll = LinkedList()
 ll.append(2)
 ll.prepend(1)
 ll.append(3)
 ll.append(4)
-ll.insert(1, 5)
-ll.pop()
-ll.removeHead()
-ll.insert(2, 6)
-ll.print_list()
 print("Length of list : ", ll.length)
+ll.reverse()
             
